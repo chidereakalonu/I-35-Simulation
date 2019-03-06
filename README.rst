@@ -1,4 +1,4 @@
-TEAM RAINBOW PRINCESS SPARKLES
+TEAM PRINCESS RAINBOW SPARKLES
 ==============================
 
 To clone this repo, use the following command:
