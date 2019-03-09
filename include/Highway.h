@@ -1,6 +1,10 @@
 #pragma once
-
+#include "Graphics.h"
 #include <string>
+
+const int MIN_LANES = 3;
+const int MIN_WIDTH = WINDOW_HEIGHT / 8;
+const int MIN_LENGTH = WINDOW_WIDTH;
 
 class Highway {
 private:
