@@ -1,4 +1,4 @@
-#include "highway.h"
+#include "Highway.h"
 #include "catch.hpp"
 
 TEST_CASE("Testing default constructor", "Highway") {
