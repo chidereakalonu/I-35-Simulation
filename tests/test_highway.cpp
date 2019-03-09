@@ -8,7 +8,7 @@ TEST_CASE("Testing default constructor", "Highway") {
     int width = dflt.get_width();
     int length = dflt.get_length();
 
-    REQUIRE(name == "whatever he chooses as a default");
+    REQUIRE(name == "I-35");
     REQUIRE(lanes == MIN_LANES);
     REQUIRE(width == MIN_WIDTH);
     REQUIRE(length == MIN_LENGTH);
