@@ -1,0 +1,23 @@
+*.bin
+
+# vim
+* ~
+*.swp
+
+# macOS
+
+.DS_Store
+
+# C/C++
+
+*.o
+*.q
+*.d
+
+# python
+
+__pycache__
+*.py[cod]
+
+testapp
+demo
