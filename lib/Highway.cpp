@@ -13,3 +13,19 @@ void Highway::Highway(int lane, int wid, int len, std::string name) {
     int length = len;
     std::string name = name;
 }
+
+std::string Highway::get_name() {
+    return name;
+}
+
+int Highway::get_lanes() {
+    return lanes;
+}
+
+int Highway::get_width() {
+    return width;
+}
+
+int Highway::get_length() {
+    return length;
+}
