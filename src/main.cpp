@@ -1,6 +1,23 @@
 #include <iostream>
 #include "Graphics.h"
 #include "Highway.h"
+
+void drawScene() {
+
+}
+
+void animate() {
+
+}
+
+void handleKey(char x) {
+    switch (x){
+      case 'q':
+        exit(0);
+        break;
+    }
+}
+
 int main() {
     std::cout << "Hello, World!";
 
