@@ -18,10 +18,10 @@ public:
     Highway(int lane, int wid, int len, std::string name);
 
     // accessors
-    void get_name();
-    void get_lanes();
-    void get_width();
-    void get_length();
+    std::string get_name();
+    int get_lanes();
+    int get_width();
+    int get_length();
 
     // mgmt methods
 	void draw();		// display the highway
