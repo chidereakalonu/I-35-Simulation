@@ -2,11 +2,11 @@
 #include "catch.hpp"
 
 TEST_CASE("Testing default constructor", "Highway") {
-    Highway default;
-    std::string name = default.get_name();
-    int lanes = default.get_lanes();
-    int width = default.get_width();
-    int length = default.get_length();
+    Highway dflt;
+    std::string name = dflt.get_name();
+    int lanes = dflt.get_lanes();
+    int width = dflt.get_width();
+    int length = dflt.get_length();
 
     REQUIRE(name == "whatever he chooses as a default");
     REQUIRE(lanes == MIN_LANES);
@@ -16,11 +16,11 @@ TEST_CASE("Testing default constructor", "Highway") {
 }
 
 TEST_CASE("Testing Constructor", "Highway") {
-    Highway explicit(4, 500, 1000, "Name");
-    std::string name = default.get_name();
-    int lanes = default.get_lanes();
-    int width = default.get_width();
-    int length = default.get_length();
+    Highway xplct(4, 500, 1000, "Name");
+    std::string name = xplct.get_name();
+    int lanes = xplct.get_lanes();
+    int width = xplct.get_width();
+    int length = xplct.get_length();
 
     REQUIRE(name == "Name");
     REQUIRE(lanes == 4);

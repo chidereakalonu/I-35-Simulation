@@ -3,14 +3,17 @@
 #include "Highway.h"
 
 void drawScene() {
-    // this is a change`
+    glClearColor(0.36, 0.16, 0.1, 1.0);
+    clearWindow();          // clear the last scene
+    glColor3d(0.0, 0.2, 0.0);
+    glutSwapBuffers();      // double buffer
 }
 
 void animate() {
 
 }
 
-void handleKey(char x) {
+void handleKey(char key, int x, int y) {
     switch (x){
       case 'q':
         exit(0);
@@ -18,7 +21,7 @@ void handleKey(char x) {
     }
 }
 
-int main() {
+int main(int argc, char **argv) {
     std::cout << "Hello, World!";
 
     graphicsSetup(argc, argv);      // initialize the graphics system
