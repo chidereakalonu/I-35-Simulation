@@ -6,6 +6,9 @@ const int MIN_LANES = 3;
 const int MIN_WIDTH = WINDOW_HEIGHT / 8;
 const int MIN_LENGTH = WINDOW_WIDTH;
 const int HIGHWAY_SECTIONS = 4;
+const int DIV_LENGTH = 25;
+const int DIV_SPACE = 5;
+const int DIV_WIDTH = 3;
 
 class Highway {
 private:

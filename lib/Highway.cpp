@@ -34,13 +34,25 @@ int Highway::get_length() {
 // mgmt functions
 
 void Highway::draw(){
-    for (int i = 0; i <  HIGHWAY_SECTIONS; i++) {
+    for (int i = 0; i < HIGHWAY_SECTIONS; i++) {
         int x_bot = 0; // bottom left corner of road
-        int y_bot = WINDOW_HEIGHT - (((4 * i) + 1) * width / 2); // bottom left corner of road
-        int x_top = MIN_LENGTH;
-        int y_top = WINDOW_HEIGHT - (((4 * i) + 3) * width / 2);
+        int y_top = WINDOW_HEIGHT - (((4 * i) + 1) * width / 2); // bottom left corner of road
+        int x_top = length;
+        int y_bot = WINDOW_HEIGHT - (((4 * i) + 3) * width / 2);
         setColor(GREY);
         drawFilledBox(x_bot, y_bot, x_top, y_top);
-            std::cout << MIN_LANES << MIN_LENGTH << MIN_WIDTH << std::endl;
+
+        // draw lane divider
+        for (int j = 1; j < lanes; j ++) {
+            setColor(WHITE);
+            int div_y_bot = y_bot + ((j * width) / lanes);
+            int div_y_top = div_y_bot + DIV_WIDTH;
+            for (int k = 0; k < (length / (DIV_SPACE + DIV_LENGTH)) + 1; k++){
+                int div_x_bot = (k * (DIV_SPACE + DIV_LENGTH));
+                int div_x_top = div_x_bot + DIV_LENGTH;
+                drawFilledBox(div_x_bot, div_y_bot, div_x_top, div_y_top);
+            }
+
+        }
     }
 }
