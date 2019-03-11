@@ -1,17 +1,18 @@
 #include "Highway.h"
 
 Highway::Highway() {
-    std::string name = "I-35";
-    int lanes = MIN_LANES;
-    int width = MIN_WIDTH;
-    int length = MIN_LENGTH;
+    name = "I-35";
+    lanes = MIN_LANES;
+    width = MIN_WIDTH;
+    length = MIN_LENGTH;
+    std::cout << MIN_LANES << MIN_LENGTH << MIN_WIDTH << std::endl;
 }
 
 Highway::Highway(int lane, int wid, int len, std::string nam) {
-    int lanes = lane;
-    int width = wid;
-    int length = len;
-    std::string name = nam;
+    lanes = lane;
+    width = wid;
+    length = len;
+    name = nam;
 }
 
 // accessors
@@ -34,6 +35,10 @@ int Highway::get_length() {
 // mgmt functions
 
 void Highway::draw(){
-
-    
+    for (int i = 0; i <  HIGHWAY_SECTIONS; i++) {
+        int x_bot = 0; // bottom left corner of road
+        int y_bot = 200; // bottom left corner of road
+        setColor(GREY);
+        drawFilledBox(length, width, x_bot, y_bot);
+    }
 }

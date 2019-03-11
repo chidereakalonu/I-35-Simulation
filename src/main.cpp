@@ -2,11 +2,13 @@
 #include "Graphics.h"
 #include "Highway.h"
 
-void drawScene() {
-    glClearColor(0, 0.33, 0.0, 1.0);
+Highway thirtyfive;
+
+void drawScene(void) {
+    glClearColor(0,0.3,0,1);
     clearWindow();          // clear the last scene
-    glColor3d(0.0, 0.2, 0.0);
-    glutSwapBuffers();      // double buffer
+    thirtyfive.draw();
+    glutSwapBuffers();      // double buffering control
 }
 
 void animate() {
@@ -27,6 +29,5 @@ int main(int argc, char **argv) {
     glutIdleFunc(animate);          // Move objects when animating
     glutKeyboardFunc(handleKey);    // set up the "q" key to quit
     glutMainLoop();                 // GLUT will control the action
-
-    return 0;
+    //glutSwapBuffers();              // double buffering control
 }

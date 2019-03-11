@@ -5,6 +5,7 @@
 const int MIN_LANES = 3;
 const int MIN_WIDTH = WINDOW_HEIGHT / 8;
 const int MIN_LENGTH = WINDOW_WIDTH;
+const int HIGHWAY_SECTIONS = 4;
 
 class Highway {
 private:
@@ -15,7 +16,7 @@ private:
 public:
     // constructors
 	Highway();		// default constructor
-    Highway(int lane, int wid, int len, std::string name);
+    Highway(int lane, int wid, int len, std::string nam);
 
     // accessors
     std::string get_name();
