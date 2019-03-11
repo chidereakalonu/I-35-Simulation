@@ -3,7 +3,7 @@
 #include "Highway.h"
 
 void drawScene() {
-    glClearColor(0.36, 0.16, 0.1, 1.0);
+    glClearColor(0, 0.33, 0.0, 1.0);
     clearWindow();          // clear the last scene
     glColor3d(0.0, 0.2, 0.0);
     glutSwapBuffers();      // double buffer
@@ -13,8 +13,8 @@ void animate() {
 
 }
 
-void handleKey(char key, int x, int y) {
-    switch (x){
+void handleKey(unsigned char key, int x, int y) {
+    switch (key){
       case 'q':
         exit(0);
         break;

@@ -14,6 +14,7 @@ Highway::Highway(int lane, int wid, int len, std::string nam) {
     std::string name = nam;
 }
 
+// accessors
 std::string Highway::get_name() {
     return name;
 }
@@ -28,4 +29,11 @@ int Highway::get_width() {
 
 int Highway::get_length() {
     return length;
+}
+
+// mgmt functions
+
+void Highway::draw(){
+
+    
 }

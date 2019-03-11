@@ -17,7 +17,7 @@ using namespace std;
 
 
 // set the drawing window dimensions and position on screen
-#define WINDOW_HEIGHT    500
+#define WINDOW_HEIGHT    800
 #define WINDOW_WIDTH    1000
 #define WINDOW_X        100
 #define WINDOW_Y        150
