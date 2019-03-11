@@ -22,8 +22,6 @@ void handleKey(unsigned char key, int x, int y) {
 }
 
 int main(int argc, char **argv) {
-    std::cout << "Hello, World!";
-
     graphicsSetup(argc, argv);      // initialize the graphics system
     glutDisplayFunc(drawScene);     // tell GLUT what function draws the scene
     glutIdleFunc(animate);          // Move objects when animating
