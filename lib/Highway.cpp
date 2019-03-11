@@ -5,7 +5,6 @@ Highway::Highway() {
     lanes = MIN_LANES;
     width = MIN_WIDTH;
     length = MIN_LENGTH;
-    std::cout << MIN_LANES << MIN_LENGTH << MIN_WIDTH << std::endl;
 }
 
 Highway::Highway(int lane, int wid, int len, std::string nam) {
@@ -37,8 +36,11 @@ int Highway::get_length() {
 void Highway::draw(){
     for (int i = 0; i <  HIGHWAY_SECTIONS; i++) {
         int x_bot = 0; // bottom left corner of road
-        int y_bot = 200; // bottom left corner of road
+        int y_bot = WINDOW_HEIGHT - (((4 * i) + 1) * width / 2); // bottom left corner of road
+        int x_top = MIN_LENGTH;
+        int y_top = WINDOW_HEIGHT - (((4 * i) + 3) * width / 2);
         setColor(GREY);
-        drawFilledBox(length, width, x_bot, y_bot);
+        drawFilledBox(x_bot, y_bot, x_top, y_top);
+            std::cout << MIN_LANES << MIN_LENGTH << MIN_WIDTH << std::endl;
     }
 }
