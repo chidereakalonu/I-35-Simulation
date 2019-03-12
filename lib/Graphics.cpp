@@ -34,7 +34,7 @@ void graphicsSetup(int argc, char **argv) {
      glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	 glutInitWindowPosition(WINDOW_X,WINDOW_Y);
 	 glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
-	 glutCreateWindow("COSC1315 - Graphics Lab");
+	 glutCreateWindow("I-35 Highway Simulator");
 	 glClearColor(1.0,1.0,1.0,0.0);
 	 gluOrtho2D(0,WINDOW_WIDTH, 0,WINDOW_HEIGHT);
 }
