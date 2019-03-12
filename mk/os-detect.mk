@@ -12,7 +12,7 @@ else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S), Linux)
 		PLATFORM := Linux
-		LFLAGS = -lglut
+		LFLAGS = -lglut -lGL -lGLEW -lGLU
 	endif
 	ifeq ($(UNAME_S), Darwin)
 		PLATFORM := Mac

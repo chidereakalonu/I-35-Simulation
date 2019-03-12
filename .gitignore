@@ -24,3 +24,9 @@ demo
 princes_sparkles
 testapp
 *.exe
+i35-sim-princess-rainbow-sparkles
+src/main.o
+lib/Highway.o
+lib/Graphics.o
+tests/test_highway.o
+tests/test_main.o
