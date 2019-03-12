@@ -22,7 +22,7 @@ endif
 
 CFLAGS	= -I /usr/local/include -I include -std=c++11
 CFLAGS += -Wno-deprecated-declarations
-LFLAGS = -framework OpenGL -framework GLUT
+
 
 .PHONY: all
 all: $(TARGET) ## build application (default)

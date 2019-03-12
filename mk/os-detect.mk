@@ -5,15 +5,17 @@ ifeq ($(OS), Windows_NT)
 	WHICH := where
 	PLATFORM := Windows
 else
-	EXT := 
+	EXT :=
 	PREFIX := ./
 	RM 	= rm -f
 	WHICH := which
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S), Linux)
 		PLATFORM := Linux
+		LFLAGS = -lglut
 	endif
 	ifeq ($(UNAME_S), Darwin)
 		PLATFORM := Mac
+		LFLAGS = -framework OpenGL -framework GLUT
 	endif
 endif
