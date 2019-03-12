@@ -1,0 +1,179 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Highway Class &#8212; PoolBalls 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.base.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+    <li><a href="index.html">PoolBalls 0.0.1 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="highway-class">
+<h1>Highway Class<a class="headerlink" href="#highway-class" title="Permalink to this headline">¶</a></h1>
+<p>The highway class acts as a management class for the traffic, as well as drawing
+the lanes and sections of road.</p>
+<div class="section" id="constants">
+<h2>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
+<p>The highway class uses the following constants:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MIN_LANES</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="n">MIN_WIDTH</span> <span class="o">=</span> <span class="n">WINDOW_HEIGHT</span> <span class="o">/</span> <span class="mi">8</span><span class="p">;</span>
+<span class="n">MIN_LENGTH</span> <span class="o">=</span> <span class="n">WINDOW_WIDTH</span><span class="p">;</span>
+<span class="n">HIGHWAY_SECTIONS</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="n">DIV_LENGTH</span> <span class="o">=</span> <span class="mi">25</span><span class="p">;</span>
+<span class="n">DIV_SPACE</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">DIV_WIDTH</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The constants with the <code class="code docutils literal notranslate"><span class="pre">DIV</span></code> prefix are for setting the lane dividers between
+the lanes. The <code class="code docutils literal notranslate"><span class="pre">MIN_WIDTH</span></code> and <code class="code docutils literal notranslate"><span class="pre">MIN_LENGTH</span></code> constants use constants
+from the Graphics library provided.</p>
+</div>
+<div class="section" id="constructors">
+<h2>Constructors<a class="headerlink" href="#constructors" title="Permalink to this headline">¶</a></h2>
+<p>The highway class provides for two constructors: a default and an explicit
+constructor.</p>
+<p>The Default constructor sets the features of the Highway object to the constants
+listed above and sets the name of the object to “I-35”.</p>
+<p>The explicit constructor expects 4 parameters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Highway</span><span class="p">::</span><span class="n">Highway</span><span class="p">(</span><span class="nb">int</span> <span class="n">lane</span><span class="p">,</span> <span class="nb">int</span> <span class="n">wid</span><span class="p">,</span> <span class="nb">int</span> <span class="nb">len</span><span class="p">,</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">nam</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">lanes</span> <span class="o">=</span> <span class="n">lane</span><span class="p">;</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">wid</span><span class="p">;</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">nam</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessors">
+<h2>Accessors<a class="headerlink" href="#accessors" title="Permalink to this headline">¶</a></h2>
+<p>There are accessor functions available for each of the features set in the
+constructors:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">get_name</span><span class="p">();</span>
+<span class="n">get_lanes</span><span class="p">();</span>
+<span class="n">get_width</span><span class="p">();</span>
+<span class="n">get_length</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="draw-method">
+<h2>Draw Method<a class="headerlink" href="#draw-method" title="Permalink to this headline">¶</a></h2>
+<p>The draw method is used to draw the four sections of highway. It must be invoked
+in order to have the base highway available on the screen.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
+    <h3><a href="index.html">Page contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Highway Class</a><ul>
+<li><a class="reference internal" href="#constants">Constants</a></li>
+<li><a class="reference internal" href="#constructors">Constructors</a></li>
+<li><a class="reference internal" href="#accessors">Accessors</a></li>
+<li><a class="reference internal" href="#draw-method">Draw Method</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/02 - Highway Class.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+    <li><a href="index.html">PoolBalls 0.0.1 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Roie R. Black.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>
