@@ -4,6 +4,7 @@ ifeq ($(OS), Windows_NT)
 	RM	= del
 	WHICH := where
 	PLATFORM := Windows
+	LFLAGS = -framework OpenGL -framework GLUT
 else
 	EXT :=
 	PREFIX := ./
