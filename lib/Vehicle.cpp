@@ -15,7 +15,7 @@ Vehicle::Vehicle(void) {
 
 Vehicle::Vehicle(int siz, int x, int y, int xv, int yv, 
         int lan, int preferred_lan, bool activ, ColorName c) {
-    size = size;
+    size = siz;
     xPos = x;
     yPos = y;
     xSpeed = xv;
