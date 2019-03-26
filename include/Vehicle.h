@@ -17,7 +17,13 @@ class Vehicle {
         ColorName color;
 
     public:
+
+        // constructors
         Vehicle();
+        Vehicle(int siz, int x, int y, int xv, int yv, 
+                int lan, int preferred_lan, bool activ, ColorName c);
+
+        // mutators
         void setPosition( int x, int y );
         void setSpeed( int xv, int yv );
 

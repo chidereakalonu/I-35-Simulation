@@ -13,16 +13,16 @@ Vehicle::Vehicle(void) {
     color = BLUE;
 }
 
-Vehicle::Vehicle(int size, int x, int y, int xv, int yv, 
-        int lane, int preferred_lane, bool active, ColorName c) {
+Vehicle::Vehicle(int siz, int x, int y, int xv, int yv, 
+        int lan, int preferred_lan, bool activ, ColorName c) {
     size = size;
     xPos = x;
     yPos = y;
     xSpeed = xv;
     ySpeed = yv;
-    lane = lane;
-    preferred_lane = preferred_lane;
-    active = active;
+    lane = lan;
+    preferred_lane = preferred_lan;
+    active = activ;
     color = c;
 }
 
