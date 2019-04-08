@@ -32,5 +32,6 @@ public:
 
     // mgmt methods
 	void draw();		// display the highway
-    void draw_cars(int xPos, int yPos);   // draw the cars
+    void draw_cars();   // draw the cars
+    void move_traffic();
 };

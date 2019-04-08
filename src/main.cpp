@@ -8,6 +8,7 @@ void drawScene(void) {
     glClearColor(0,0.3,0,1);
     clearWindow();          // clear the last scene
     thirtyfive.draw();
+    thirtyfive.draw_cars();
     glutSwapBuffers();      // double buffering control
 }
 

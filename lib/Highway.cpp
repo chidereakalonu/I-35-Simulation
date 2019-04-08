@@ -56,11 +56,15 @@ void Highway::draw(){
     }
 }
 
-void Highway::draw_cars(int xPos, int yPos) {
+void Highway::draw_cars() {
     int len = car.getSize();
-    int car_x_bot = xPos;
-    int car_y_bot = yPos;
-    int car_x_top = xPos + len;
-    int car_y_top = yPos + (MIN_WIDTH / 4);
+    int car_x_bot = car.getXPos();
+    int car_y_bot = car.getYPos();
+    int car_x_top = car_x_bot + len;
+    int car_y_top = car_y_bot + (MIN_WIDTH / 4);
     drawFilledBox(car_x_bot, car_y_bot, car_x_top, car_y_top);
+}
+
+void Hightway::move_traffic() {
+    car.move()
 }
