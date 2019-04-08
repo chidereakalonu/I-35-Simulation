@@ -14,6 +14,10 @@ void drawScene(void) {
 
 void animate() {
 
+    thirtyfive.move_traffic();
+    glutPostRedisplay();
+    pause_ms(16);
+
 }
 
 void handleKey(unsigned char key, int x, int y) {

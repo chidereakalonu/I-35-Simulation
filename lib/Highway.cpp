@@ -65,6 +65,6 @@ void Highway::draw_cars() {
     drawFilledBox(car_x_bot, car_y_bot, car_x_top, car_y_top);
 }
 
-void Hightway::move_traffic() {
-    car.move()
+void Highway::move_traffic() {
+    car.move();
 }
