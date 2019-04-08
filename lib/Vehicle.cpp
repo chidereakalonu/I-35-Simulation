@@ -13,7 +13,7 @@ Vehicle::Vehicle(void) {
     color = BLUE;
 }
 
-Vehicle::Vehicle(int siz, int x, int y, int xv, int yv, 
+Vehicle::Vehicle(int siz, int x, int y, int xv, int yv,
         int lan, int preferred_lan, bool activ, ColorName c) {
     size = siz;
     xPos = x;
@@ -26,6 +26,19 @@ Vehicle::Vehicle(int siz, int x, int y, int xv, int yv,
     color = c;
 }
 
+// accessors
+int Vehicle::getSize() {
+    return size;
+}
+
+int Vehicle::getXPos() {
+    return xPos;
+}
+
+int Vehicle::getYPos() {
+    return yPos;
+}
+
 // mutator methods
 void Vehicle::setPosition(int x, int y) {
     xPos = x;
@@ -34,10 +47,10 @@ void Vehicle::setPosition(int x, int y) {
 
 void Vehicle::setSpeed(int xv, int yv) {
     xSpeed = xv;
-    ySpeed = xy;
+    ySpeed = yv;
 }
 
-void move(void) {
+void Vehicle::move(void) {
     xPos += xSpeed;
     yPos += ySpeed;
 }

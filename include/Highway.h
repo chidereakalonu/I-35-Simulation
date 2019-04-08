@@ -1,6 +1,7 @@
 #pragma once
 #include "Graphics.h"
 #include <string>
+#include "Vehicle.h"
 
 const int MIN_LANES = 3;
 const int MIN_WIDTH = WINDOW_HEIGHT / 8;
@@ -16,6 +17,8 @@ private:
     int lanes;		// number of lanes
     int width;		// width of each lane in pixels
     int length;		// length of each lane segment
+
+    Vehicle car;
 public:
     // constructors
 	Highway();		// default constructor
@@ -29,4 +32,5 @@ public:
 
     // mgmt methods
 	void draw();		// display the highway
+    void draw_cars(int xPos, int yPos);   // draw the cars
 };

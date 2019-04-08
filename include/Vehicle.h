@@ -7,7 +7,7 @@ class Vehicle {
     private:
         int size;       // how big should this vehicle be
         int xPos;       // screen position in pixels
-        int yPos;       
+        int yPos;
         int xSpeed;     // current speed
         int ySpeed;
 
@@ -20,12 +20,17 @@ class Vehicle {
 
         // constructors
         Vehicle();
-        Vehicle(int siz, int x, int y, int xv, int yv, 
+        Vehicle(int siz, int x, int y, int xv, int yv,
                 int lan, int preferred_lan, bool activ, ColorName c);
 
         // mutators
         void setPosition( int x, int y );
         void setSpeed( int xv, int yv );
+
+        // accessors
+        int getSize();
+        int getXPos();
+        int getYPos();
 
         void move( void );
 };

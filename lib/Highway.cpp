@@ -52,7 +52,15 @@ void Highway::draw(){
                 int div_x_top = div_x_bot + DIV_LENGTH;
                 drawFilledBox(div_x_bot, div_y_bot, div_x_top, div_y_top);
             }
-
         }
     }
+}
+
+void Highway::draw_cars(int xPos, int yPos) {
+    int len = car.getSize();
+    int car_x_bot = xPos;
+    int car_y_bot = yPos;
+    int car_x_top = xPos + len;
+    int car_y_top = yPos + (MIN_WIDTH / 4);
+    drawFilledBox(car_x_bot, car_y_bot, car_x_top, car_y_top);
 }
