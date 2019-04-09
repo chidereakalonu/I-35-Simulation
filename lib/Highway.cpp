@@ -61,7 +61,8 @@ void Highway::draw_cars() {
     int car_x_bot = car.getXPos();
     int car_y_bot = car.getYPos();
     int car_x_top = car_x_bot + len;
-    int car_y_top = car_y_bot + (MIN_WIDTH / 4);
+    int car_y_top = car_y_bot + (MIN_WIDTH / 5);
+    setColor(RED);
     drawFilledBox(car_x_bot, car_y_bot, car_x_top, car_y_top);
 }
 

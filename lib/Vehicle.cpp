@@ -2,9 +2,9 @@
 
 // constructors
 Vehicle::Vehicle(void) {
-    size = 10;
+    size = 35;
     xPos = 0;
-    yPos = 100;
+    yPos = 125;
     xSpeed = 2;
     ySpeed = 0;
     lane = 1;

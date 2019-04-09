@@ -30,3 +30,6 @@ lib/Highway.o
 lib/Graphics.o
 tests/test_highway.o
 tests/test_main.o
+Group_Project_1337
+lib/Vehicle.o
+tests/test_vehicle.o
