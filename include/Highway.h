@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Graphics.h"
 #include <string>
 #include "Vehicle.h"
@@ -18,16 +19,19 @@ private:
     int lanes;		// number of lanes
     int width;		// width of each lane in pixels
     int length;		// length of each lane segment
+    int traffic;    // number of cars on the road
+    Vehicle * carList;    // location of the first node
 
     int mile[HIGHWAY_SECTIONS];    // array that stores the middle lane for each sect. of road
-    Vehicle car;
+
 public:
     // constructors
 	Highway();		// default constructor
-    Highway(int lane, int wid, int len, std::string nam);
+    Highway(int lane, int wid, int len, std::string nam, int trfc);
 
     // accessors
     std::string get_name();
+    Vehicle * getTraffic();
     int get_lanes();
     int get_width();
     int get_length();

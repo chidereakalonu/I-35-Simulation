@@ -7,29 +7,47 @@ Vehicle::Vehicle(void) {
     yPos = -100;
     xSpeed = 2;
     ySpeed = 0;
-    lane = 1;
     preferred_lane = 1;
     current_lane = 3;
     active = true;
     color = BLUE;
     mile = 1;
 
-
+    this->Next = nullptr;
+    this->Prev = nullptr;
 }
 
 Vehicle::Vehicle(int siz, int x, int y, int xv, int yv,
-        int lan, int preferred_lan, bool activ, ColorName c) {
+        int preferred_lan, bool activ,
+        ColorName c, Vehicle * nextCar, Vehicle * prevCar) {
     size = siz;
     xPos = x;
     yPos = y;
     xSpeed = xv;
     ySpeed = yv;
-    lane = lan;
     preferred_lane = preferred_lan;
     current_lane = preferred_lan;
     active = activ;
     color = c;
     mile = 0;
+    this->Next = nextCar;
+    this->Prev = prevCar;
+}
+// Linked List Code
+Vehicle * Vehicle::getNext(void) {
+    return this->Next;
+}
+
+Vehicle * Vehicle::getPrevious(void) {
+    return this->Prev;
+}
+
+void Vehicle::setNext( Vehicle * ptr) {
+    this->Next = ptr;
+}
+
+void Vehicle::setPrev( Vehicle * ptr ) {
+    this->Prev = ptr;
 }
 
 // accessors
