@@ -6,15 +6,20 @@ Highway::Highway() {
     width = MIN_WIDTH;
     length = MIN_LENGTH;
     traffic = 5;
+    Vehicle * prevCar;
     for (int i = 0; i < traffic; i++) {
         Vehicle * car = new Vehicle;
-        // if (i == 0) {
-        //     car->setPrev( nullptr );
-        // }
+        if (i == 0) {
+            car->setPrev( nullptr );
+        }
+        else {
+            car->setPrev( prevCar );
+        }
         car->setPosition((-50) * i - 50, car->getYPos());
+        car->setID(i);
         car->setNext( this->carList );
         this->carList = car;
-        std::cout << "Made a new one! Number: " << i << std::endl;
+        prevCar = car;
     }
 }
 
@@ -70,7 +75,6 @@ void Highway::draw(){
 }
 
 void Highway::draw_cars() {
-    // std::cout << "Draw?!" << std::endl;
     Vehicle * car = carList;
     while ( car != nullptr) {
         int current_lane = car->getCurrentLane();
@@ -86,7 +90,6 @@ void Highway::draw_cars() {
         else {
             // set the yPos to the middle of the lane (2n - 1) / 6
             int yPos = mile[current_mile] + ( (2 * current_lane - 1) * width / 6 );
-            // std::cout << width << std::endl;
             car->setPosition(car->getXPos(), yPos);
         }
         if (current_mile >= HIGHWAY_SECTIONS) car->setPosition(-100, -100);
@@ -109,7 +112,6 @@ void Highway::move_traffic() {
     Vehicle * car = carList;
     while (car != nullptr) {
         car->move();
-        // std::cout << "Move?!" << std::endl;
         car = car->getNext();
     }
 }

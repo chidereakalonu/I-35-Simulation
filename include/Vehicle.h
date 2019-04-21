@@ -13,6 +13,7 @@ class Vehicle {
         int yPos;
         int xSpeed;     // current speed
         int ySpeed;
+        int id;
 
         int preferred_lane;
         int current_lane;
@@ -35,7 +36,7 @@ class Vehicle {
         void setLane(int lane);
         void setMile(int mi);
         void move( void );
-
+        void setID(int i);
         void setNext(Vehicle * ptr);
         void setPrev(Vehicle * ptr);
 
@@ -46,6 +47,7 @@ class Vehicle {
         int getCurrentLane();
         int getPreferredLane();
         int getMile();
+        int getID();
 
         Vehicle * getNext( void );
         Vehicle * getPrevious( void );

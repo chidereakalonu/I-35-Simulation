@@ -33,6 +33,7 @@ Vehicle::Vehicle(int siz, int x, int y, int xv, int yv,
     this->Next = nextCar;
     this->Prev = prevCar;
 }
+
 // Linked List Code
 Vehicle * Vehicle::getNext(void) {
     return this->Next;
@@ -71,6 +72,10 @@ int Vehicle::getMile() {
     return mile;
 }
 
+int Vehicle::getID() {
+    return id;
+}
+
 // mutator methods
 void Vehicle::setPosition(int x, int y) {
     xPos = x;
@@ -95,4 +100,8 @@ void Vehicle::setLane(int lane) {
 
 void Vehicle::setMile(int mi) {
     mile = mi;
+}
+
+void Vehicle::setID( int i ) {
+    id = i;
 }
