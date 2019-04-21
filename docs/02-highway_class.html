@@ -62,11 +62,13 @@ the lanes and sections of road.</p>
 <span class="n">DIV_LENGTH</span> <span class="o">=</span> <span class="mi">25</span><span class="p">;</span>
 <span class="n">DIV_SPACE</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
 <span class="n">DIV_WIDTH</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="n">LANE_HEIGHT</span> <span class="o">=</span> <span class="n">MIN_WIDTH</span> <span class="o">/</span> <span class="n">MIN_LANES</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>The constants with the <code class="code docutils literal notranslate"><span class="pre">DIV</span></code> prefix are for setting the lane dividers between
 the lanes. The <code class="code docutils literal notranslate"><span class="pre">MIN_WIDTH</span></code> and <code class="code docutils literal notranslate"><span class="pre">MIN_LENGTH</span></code> constants use constants
-from the Graphics library provided.</p>
+from the Graphics library provided. <code class="code docutils literal notranslate"><span class="pre">LANE_HEIGHT</span></code> is used to calculate the
+placement of the vehicle in the correct lane when drawn.</p>
 </div>
 <div class="section" id="constructors">
 <h2>Constructors<a class="headerlink" href="#constructors" title="Permalink to this headline">¶</a></h2>
@@ -92,13 +94,65 @@ constructors:</p>
 <span class="n">get_lanes</span><span class="p">();</span>
 <span class="n">get_width</span><span class="p">();</span>
 <span class="n">get_length</span><span class="p">();</span>
+<span class="n">getTraffic</span><span class="p">();</span>
 </pre></div>
 </div>
+<p><code class="code docutils literal notranslate"><span class="pre">get_name()</span></code> returns the name of the highway simulator. At time of writing
+this is not used.</p>
+<p><code class="code docutils literal notranslate"><span class="pre">get_lanes()</span></code> returns the number of lanes per section.</p>
+<p><code class="code docutils literal notranslate"><span class="pre">get_width()</span></code> returns the width of each section.</p>
+<p><code class="code docutils literal notranslate"><span class="pre">get_length()</span></code> returns the length of each highway section.</p>
+<p><code class="code docutils literal notranslate"><span class="pre">getTraffic()</span></code> is used to return the linked list of cars. In particular,
+it points to the very first car in the list in order to kick off the linked list
+walk.</p>
 </div>
 <div class="section" id="draw-method">
 <h2>Draw Method<a class="headerlink" href="#draw-method" title="Permalink to this headline">¶</a></h2>
 <p>The draw method is used to draw the four sections of highway. It must be invoked
 in order to have the base highway available on the screen.</p>
+</div>
+<div class="section" id="drawing-cars">
+<h2>Drawing Cars<a class="headerlink" href="#drawing-cars" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="code docutils literal notranslate"><span class="pre">draw_cars()</span></code> method is responsible for drawing every single car that
+is spawned in the simulator. It begins by walking through the car linked list:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">car</span><span class="o">-&gt;</span><span class="n">getXPos</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">-</span> <span class="n">car</span><span class="o">-&gt;</span><span class="n">getSize</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="n">car</span><span class="o">-&gt;</span><span class="n">setMile</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">current_mile</span> <span class="o">=</span> <span class="n">car</span><span class="o">-&gt;</span><span class="n">getMile</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">car</span><span class="o">-&gt;</span><span class="n">getXPos</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">WINDOW_WIDTH</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">car</span><span class="o">-&gt;</span><span class="n">setMile</span><span class="p">(</span><span class="n">current_mile</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">car</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="mi">0</span> <span class="o">-</span> <span class="n">car</span><span class="o">-&gt;</span><span class="n">getSize</span><span class="p">(),</span> <span class="n">car</span><span class="o">-&gt;</span><span class="n">getYPos</span><span class="p">());</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nb">int</span> <span class="n">yPos</span> <span class="o">=</span> <span class="n">mile</span><span class="p">[</span><span class="n">current_mile</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">current_lane</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">6</span> <span class="p">);</span>
+    <span class="n">car</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">car</span><span class="o">-&gt;</span><span class="n">getXPos</span><span class="p">(),</span> <span class="n">yPos</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">current_mile</span> <span class="o">&gt;=</span> <span class="n">HIGHWAY_SECTIONS</span><span class="p">)</span> <span class="n">car</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If the X-Position of the car is less than 0, the algorithm assumes that the car
+is queued up to begin and makes sure that the mile is set to 0, so it begins
+at the top of the simulation. Otherwise, if the car goes off of the side of the
+screen, the algorithm assumes it is time to move it to the next section and
+sets the mile + 1. If the car is on the road, the algorithm will simply check
+which lane the car is supposed to be in and put it there. A more complicated
+lane switching algorithm should be inserted here in the future.</p>
+<p>Finally, when the car goes off of the side of the screen on the final mile, the
+position is set to (-100, -100). This will trigger the first if statement and
+repeat the entire process. The rest of the drawing housekeeping can be seen
+here:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="nb">len</span> <span class="o">=</span> <span class="n">car</span><span class="o">-&gt;</span><span class="n">getSize</span><span class="p">();</span>
+<span class="nb">int</span> <span class="n">car_x_bot</span> <span class="o">=</span> <span class="n">car</span><span class="o">-&gt;</span><span class="n">getXPos</span><span class="p">();</span>
+<span class="nb">int</span> <span class="n">car_y_bot</span> <span class="o">=</span> <span class="n">car</span><span class="o">-&gt;</span><span class="n">getYPos</span><span class="p">()</span> <span class="o">-</span> <span class="p">(</span><span class="n">LANE_HEIGHT</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">5</span><span class="p">);</span>
+<span class="nb">int</span> <span class="n">car_x_top</span> <span class="o">=</span> <span class="n">car_x_bot</span> <span class="o">+</span> <span class="nb">len</span><span class="p">;</span>
+<span class="nb">int</span> <span class="n">car_y_top</span> <span class="o">=</span> <span class="n">car</span><span class="o">-&gt;</span><span class="n">getYPos</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="n">LANE_HEIGHT</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">5</span><span class="p">);</span>
+<span class="n">setColor</span><span class="p">(</span><span class="n">RED</span><span class="p">);</span>
+<span class="n">drawFilledBox</span><span class="p">(</span><span class="n">car_x_bot</span><span class="p">,</span> <span class="n">car_y_bot</span><span class="p">,</span> <span class="n">car_x_top</span><span class="p">,</span> <span class="n">car_y_top</span><span class="p">);</span>
+
+<span class="o">//</span> <span class="n">move</span> <span class="n">ptr</span> <span class="n">to</span> <span class="nb">next</span> <span class="ow">in</span> <span class="n">the</span> <span class="nb">list</span>
+<span class="n">car</span> <span class="o">=</span> <span class="n">car</span><span class="o">-&gt;</span><span class="n">getNext</span><span class="p">();</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -115,6 +169,7 @@ in order to have the base highway available on the screen.</p>
 <li><a class="reference internal" href="#constructors">Constructors</a></li>
 <li><a class="reference internal" href="#accessors">Accessors</a></li>
 <li><a class="reference internal" href="#draw-method">Draw Method</a></li>
+<li><a class="reference internal" href="#drawing-cars">Drawing Cars</a></li>
 </ul>
 </li>
 </ul>
