@@ -57,6 +57,43 @@
 <p>This is a I-35 highway simulation. The purpose is to simulate traffic on the I-35
 corridor through Austin. Each section of road represents one mile – the top
 section is the first mile, the next the second, and so on.</p>
+<p>This is an educational repository meant to teach the participants about classes,
+linked lists, and simple computer graphics.</p>
+<p>The project is broken into a few different parts. The Vehicle class handles
+the properties of each car on the road. Each vehicle acts as a node in a
+doubly linked list. The Highway class acts a management class for the vehicles,
+as well as the management of the linked list of Vehicles.</p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>To run on your machine, the I-35 simulator requires you to have a basic GNU
+toolset installed on your machine. On Debian-Based linux distributions, this is
+provided with the <code class="code docutils literal notranslate"><span class="pre">build-essentials</span></code> package. On Mac, this is provided
+with the developer tools installation. You will also need the Freeglut libraries
+installed on your machine to compile and run. This is included in the developer
+tools for Mac, but on Linux, you will need to install the freeglut library
+separately.</p>
+<p>For Windows, you will need to download and install <a class="reference external" href="http://www.co-pylit.org/courses/cosc1337/lectures/02-Course-Tools/04-installing-mingw.html">the GNU compiler</a>,
+as well as installing the <a class="reference external" href="http://www.co-pylit.org/courses/cosc1337/lectures/02-Course-Tools/03-installing-make.html">make toolset</a>.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>To install, simply clone the repository and run <code class="code docutils literal notranslate"><span class="pre">make</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ACC</span><span class="o">-</span><span class="n">COSC1337</span><span class="o">-</span><span class="mi">002</span><span class="o">-</span><span class="n">SP19</span><span class="o">/</span><span class="n">i35</span><span class="o">-</span><span class="n">sim</span><span class="o">-</span><span class="n">princess</span><span class="o">-</span><span class="n">rainbow</span><span class="o">-</span><span class="n">sparkles</span><span class="o">.</span><span class="n">git</span>
+<span class="n">make</span>
+</pre></div>
+</div>
+<p>The following make targets are available:</p>
+<ul class="simple">
+<li><code class="code docutils literal notranslate"><span class="pre">make</span></code> - Compiles the repository to an executable</li>
+<li><code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">run</span></code> - Compiles and launches the executable immediately</li>
+<li><code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code> - Remove all objects and executables</li>
+<li><code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">debug</span></code> - Displays the local make variables defined</li>
+<li><code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">debug-all</span></code> - Displays all make variables defined</li>
+<li><code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">help</span></code> - Displays a help message showing these make targets.</li>
+<li><code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">ignore</span></code> - Scans the repo and adds certain files to the .gitignore file</li>
+<li><code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> - runs sphinx to generate html docs from the <code class="code docutils literal notranslate"><span class="pre">rst/</span></code> directory</li>
+</ul>
+</div>
 </div>
 
 
@@ -64,7 +101,17 @@ section is the first mile, the next the second, and so on.</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
+    <h3><a href="index.html">Page contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
   <div class="sphinxprev">
     <h4>Previous page</h4>
     <p class="topless"><a href="index.html"
