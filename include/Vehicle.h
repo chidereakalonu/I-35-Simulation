@@ -13,6 +13,9 @@ class Vehicle {
 
         int lane;
         int preferred_lane;
+        int current_lane;
+
+        int mile;
         bool active;
         ColorName color;
 
@@ -26,11 +29,16 @@ class Vehicle {
         // mutators
         void setPosition( int x, int y );
         void setSpeed( int xv, int yv );
+        void setLane(int lane);
+        void setMile(int mi);
 
         // accessors
         int getSize();
         int getXPos();
         int getYPos();
+        int getCurrentLane();
+        int getPreferredLane();
+        int getMile();
 
         void move( void );
 };

@@ -4,12 +4,13 @@
 #include "Vehicle.h"
 
 const int MIN_LANES = 3;
-const int MIN_WIDTH = WINDOW_HEIGHT / 8;
 const int MIN_LENGTH = WINDOW_WIDTH;
 const int HIGHWAY_SECTIONS = 4;
+const int MIN_WIDTH = WINDOW_HEIGHT / (HIGHWAY_SECTIONS * 2);
 const int DIV_LENGTH = 25;
 const int DIV_SPACE = 5;
 const int DIV_WIDTH = 3;
+const int LANE_HEIGHT = MIN_WIDTH / MIN_LANES;
 
 class Highway {
 private:
@@ -18,6 +19,7 @@ private:
     int width;		// width of each lane in pixels
     int length;		// length of each lane segment
 
+    int mile[HIGHWAY_SECTIONS];    // array that stores the middle lane for each sect. of road
     Vehicle car;
 public:
     // constructors

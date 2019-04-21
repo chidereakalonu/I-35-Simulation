@@ -41,6 +41,7 @@ void Highway::draw(){
         int y_bot = WINDOW_HEIGHT - (((4 * i) + 3) * width / 2);
         setColor(GREY);
         drawFilledBox(x_bot, y_bot, x_top, y_top);
+        mile[i] = y_bot;
 
         // draw lane divider
         for (int j = 1; j < lanes; j ++) {
@@ -57,13 +58,33 @@ void Highway::draw(){
 }
 
 void Highway::draw_cars() {
+    int current_lane = car.getCurrentLane();
+    int current_mile = car.getMile();
+    if (car.getXPos() < 0 - car.getSize() ) {
+        car.setMile(0);
+        current_mile = car.getMile();
+        car.setPosition(0 - car.getSize(), car.getYPos());
+    } else if (car.getXPos() > WINDOW_WIDTH) {
+        car.setMile(current_mile + 1);
+        car.setPosition(0 - car.getSize(), car.getYPos());
+    }
+    else {
+        // set the yPos to the middle of the lane (2n - 1) / 6
+        int yPos = mile[current_mile] + ( (2 * current_lane - 1) * width / 6 );
+        std::cout << width << std::endl;
+        car.setPosition(car.getXPos(), yPos);
+    }
+    if (current_mile >= HIGHWAY_SECTIONS) car.setPosition(-100, -100);
+
     int len = car.getSize();
     int car_x_bot = car.getXPos();
-    int car_y_bot = car.getYPos();
+    int car_y_bot = car.getYPos() - (LANE_HEIGHT / 2 - 5);
     int car_x_top = car_x_bot + len;
-    int car_y_top = car_y_bot + (MIN_WIDTH / 5);
+    int car_y_top = car.getYPos() + (LANE_HEIGHT / 2 - 5);
     setColor(RED);
     drawFilledBox(car_x_bot, car_y_bot, car_x_top, car_y_top);
+
+
 }
 
 void Highway::move_traffic() {

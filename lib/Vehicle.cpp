@@ -3,14 +3,18 @@
 // constructors
 Vehicle::Vehicle(void) {
     size = 35;
-    xPos = 0;
-    yPos = 125;
+    xPos = -100;
+    yPos = -100;
     xSpeed = 2;
     ySpeed = 0;
     lane = 1;
     preferred_lane = 1;
+    current_lane = 3;
     active = true;
     color = BLUE;
+    mile = 1;
+
+
 }
 
 Vehicle::Vehicle(int siz, int x, int y, int xv, int yv,
@@ -22,8 +26,10 @@ Vehicle::Vehicle(int siz, int x, int y, int xv, int yv,
     ySpeed = yv;
     lane = lan;
     preferred_lane = preferred_lan;
+    current_lane = preferred_lan;
     active = activ;
     color = c;
+    mile = 0;
 }
 
 // accessors
@@ -37,6 +43,14 @@ int Vehicle::getXPos() {
 
 int Vehicle::getYPos() {
     return yPos;
+}
+
+int Vehicle::getCurrentLane() {
+    return current_lane;
+}
+
+int Vehicle::getMile() {
+    return mile;
 }
 
 // mutator methods
@@ -53,4 +67,14 @@ void Vehicle::setSpeed(int xv, int yv) {
 void Vehicle::move(void) {
     xPos += xSpeed;
     yPos += ySpeed;
+}
+
+void Vehicle::setLane(int lane) {
+    if (lane != current_lane) {
+        current_lane = lane;
+    }
+}
+
+void Vehicle::setMile(int mi) {
+    mile = mi;
 }
