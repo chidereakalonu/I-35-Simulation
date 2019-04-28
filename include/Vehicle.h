@@ -4,7 +4,7 @@
 #include "Graphics.h"
 #include "Random.h"
 
-static const ColorName colors[14] = { WHITE, GREY, BLACK, RED, ORANGE, YELLOW, GREEN,
+static const ColorName colors[13] = { WHITE, BLACK, RED, ORANGE, YELLOW, GREEN,
                         FOREST_GREEN, BLUE, CYAN, MIDNIGHT_BLUE, PURPLE,
                         MAGENTA, BROWN};
 

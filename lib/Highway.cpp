@@ -29,34 +29,14 @@ Highway::Highway() {
             car->setPosition((-50) * i - 50, car->getYPos());
             car->setLane(init_lane);
         }
-
+    }
     Vehicle * car = this->carList;
     while (car != nullptr) {
         car->setLane(dice.randint(1,3));
-        car->setColor(dice.randint(1,14));
+        car->setColor(dice.randint(1,13));
+        car->setSpeed(dice.randint(4,8), 0);
         car = car->getNext();
     }
-    // for (int i = 0; i < traffic; i++) {
-    //     Vehicle * car = new Vehicle;
-    //     if (i == 0) {
-    //         car->setPrev( nullptr );
-    //     }
-    //     else {
-    //         car->setPrev( prevCar );
-    //     }
-    //     car->setPosition((-50) * i - 50, car->getYPos());
-    //     car->setID(i);
-    //     car->setNext( this->carList );
-    //     this->carList = car;
-    //     prevCar = car;
-    }
-    // ptr = this->carlist;
-    // while (ptr != nullptr) {
-    //     car->setPosition((-50) * i - 50, car->getYPos());
-    //     car->setID(i);
-    //     car->setLane(dice.randint(1,3));
-    //     car->
-    // }
 }
 
 Highway::Highway(int lane, int wid, int len, std::string nam, int trfc) {
