@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Graphics.h"
 #include "Highway.h"
+#include "Random.h"
 
 Highway thirtyfive;
 

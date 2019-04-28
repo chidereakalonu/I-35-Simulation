@@ -4,8 +4,8 @@ Random::Random() {
     this->seed();
 }
 
-void Random::seed() {
-    srand(time(NULL));
+void Random::seed(void) {
+    srand((unsigned) time(0));
 }
 
 int Random::randint(int min, int max) {

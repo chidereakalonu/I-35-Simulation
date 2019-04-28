@@ -4,8 +4,6 @@
 #include <iostream>
 
 class Random {
-private:
-    // none
 public:
     Random();
     void seed();

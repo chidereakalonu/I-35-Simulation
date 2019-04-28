@@ -1,26 +1,62 @@
 #include "Highway.h"
 
+Random dice;
+
 Highway::Highway() {
     name = "I-35";
     lanes = MIN_LANES;
     width = MIN_WIDTH;
     length = MIN_LENGTH;
-    traffic = 5;
-    Vehicle * prevCar;
+    traffic = dice.randint(50, 200);
+    this->carList = nullptr;
     for (int i = 0; i < traffic; i++) {
-        Vehicle * car = new Vehicle;
-        if (i == 0) {
-            car->setPrev( nullptr );
+        Vehicle * ptr = this->carList;
+        int init_lane = dice.randint(1,3);
+        if (ptr == nullptr) {
+            Vehicle * car = new Vehicle;
+            this->carList = car;
+            car->setPrev(nullptr);
+            car->setNext(nullptr);
+            car->setPosition((-50) * i - 50, car->getYPos());
         }
         else {
-            car->setPrev( prevCar );
+            while (ptr->getNext() != nullptr) {
+                ptr = ptr->getNext();
+            }
+            Vehicle * car = new Vehicle();
+            ptr->setNext( car );
+            car->setPrev( ptr );
+            car->setPosition((-50) * i - 50, car->getYPos());
+            car->setLane(init_lane);
         }
-        car->setPosition((-50) * i - 50, car->getYPos());
-        car->setID(i);
-        car->setNext( this->carList );
-        this->carList = car;
-        prevCar = car;
+
+    Vehicle * car = this->carList;
+    while (car != nullptr) {
+        car->setLane(dice.randint(1,3));
+        car->setColor(dice.randint(1,14));
+        car = car->getNext();
     }
+    // for (int i = 0; i < traffic; i++) {
+    //     Vehicle * car = new Vehicle;
+    //     if (i == 0) {
+    //         car->setPrev( nullptr );
+    //     }
+    //     else {
+    //         car->setPrev( prevCar );
+    //     }
+    //     car->setPosition((-50) * i - 50, car->getYPos());
+    //     car->setID(i);
+    //     car->setNext( this->carList );
+    //     this->carList = car;
+    //     prevCar = car;
+    }
+    // ptr = this->carlist;
+    // while (ptr != nullptr) {
+    //     car->setPosition((-50) * i - 50, car->getYPos());
+    //     car->setID(i);
+    //     car->setLane(dice.randint(1,3));
+    //     car->
+    // }
 }
 
 Highway::Highway(int lane, int wid, int len, std::string nam, int trfc) {
@@ -91,6 +127,7 @@ void Highway::draw_cars() {
             // set the yPos to the middle of the lane (2n - 1) / 6
             int yPos = mile[current_mile] + ( (2 * current_lane - 1) * width / 6 );
             car->setPosition(car->getXPos(), yPos);
+
         }
         if (current_mile >= HIGHWAY_SECTIONS) car->setPosition(-100, -100);
 
@@ -99,7 +136,7 @@ void Highway::draw_cars() {
         int car_y_bot = car->getYPos() - (LANE_HEIGHT / 2 - 5);
         int car_x_top = car_x_bot + len;
         int car_y_top = car->getYPos() + (LANE_HEIGHT / 2 - 5);
-        setColor(RED);
+        setColor(car->getColor());
         drawFilledBox(car_x_bot, car_y_bot, car_x_top, car_y_top);
 
         // move ptr to next in the list

@@ -2,11 +2,19 @@
 
 #include <iostream>
 #include "Graphics.h"
+#include "Random.h"
+
+static const ColorName colors[14] = { WHITE, GREY, BLACK, RED, ORANGE, YELLOW, GREEN,
+                        FOREST_GREEN, BLUE, CYAN, MIDNIGHT_BLUE, PURPLE,
+                        MAGENTA, BROWN};
 
 class Vehicle {
     private:
+
         Vehicle * Next;
         Vehicle * Prev;
+
+        Random dice;
 
         int size;       // how big should this vehicle be
         int xPos;       // screen position in pixels
@@ -20,7 +28,7 @@ class Vehicle {
 
         int mile;
         bool active;
-        ColorName color;
+        int color;
 
     public:
 
@@ -39,6 +47,7 @@ class Vehicle {
         void setID(int i);
         void setNext(Vehicle * ptr);
         void setPrev(Vehicle * ptr);
+        void setColor(int col);
 
         // accessors
         int getSize();
@@ -48,6 +57,7 @@ class Vehicle {
         int getPreferredLane();
         int getMile();
         int getID();
+        ColorName getColor();
 
         Vehicle * getNext( void );
         Vehicle * getPrevious( void );

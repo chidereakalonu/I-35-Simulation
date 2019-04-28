@@ -2,15 +2,15 @@
 
 // constructors
 Vehicle::Vehicle(void) {
-    size = 35;
+    size = 25;
     xPos = -100;
     yPos = -100;
-    xSpeed = 2;
+    xSpeed = 10;
     ySpeed = 0;
-    preferred_lane = 1;
+    preferred_lane = 3;
     current_lane = 3;
     active = true;
-    color = BLUE;
+    color = 0;
     mile = 1;
 
     this->Next = nullptr;
@@ -76,6 +76,10 @@ int Vehicle::getID() {
     return id;
 }
 
+ColorName Vehicle::getColor() {
+    return colors[color];
+}
+
 // mutator methods
 void Vehicle::setPosition(int x, int y) {
     xPos = x;
@@ -104,4 +108,8 @@ void Vehicle::setMile(int mi) {
 
 void Vehicle::setID( int i ) {
     id = i;
+}
+
+void Vehicle::setColor(int col) {
+    color = col;
 }

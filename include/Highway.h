@@ -24,6 +24,8 @@ private:
 
     int mile[HIGHWAY_SECTIONS];    // array that stores the middle lane for each sect. of road
 
+
+
 public:
     // constructors
 	Highway();		// default constructor
