@@ -16,14 +16,34 @@ TEST_CASE("Testing default constructor", "Highway") {
 }
 
 TEST_CASE("Testing Constructor", "Highway") {
-    Highway xplct(4, 500, 1000, "Name");
+    int cars = 200;
+    Highway xplct(3, 500, 1000, "Name", cars);
     std::string name = xplct.get_name();
     int lanes = xplct.get_lanes();
     int width = xplct.get_width();
     int length = xplct.get_length();
 
     REQUIRE(name == "Name");
-    REQUIRE(lanes == 4);
+    REQUIRE(lanes == 3);
     REQUIRE(width == 500);
     REQUIRE(length == 1000);
+
+    Vehicle * car = xplct.getCarList();
+    int count = 0;
+    while (car != nullptr) {
+        if (count == 0) {
+            REQUIRE(car->getPrev() == nullptr);
+        }
+        else if (count == cars - 1) {
+            REQUIRE(car->getNext() == nullptr);
+        }
+        else {
+            REQUIRE(car->getNext() != nullptr);
+            REQUIRE(car->getPrev() != nullptr);
+        }
+        count++;
+        car = car->getNext();
+
+    }
+    REQUIRE(count == cars);
 }
