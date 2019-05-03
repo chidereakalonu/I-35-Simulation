@@ -9,6 +9,8 @@ Highway::Highway() {
     length = MIN_LENGTH;
     traffic = dice.randint(50, 200);
     this->carList = nullptr;
+
+    // populate the list
     for (int i = 0; i < traffic; i++) {
         Vehicle * ptr = this->carList;
         int init_lane = dice.randint(1,3);
@@ -30,6 +32,7 @@ Highway::Highway() {
             car->setLane(init_lane);
         }
     }
+    // set up the vehicles
     Vehicle * car = this->carList;
     while (car != nullptr) {
         car->setLane(dice.randint(1,3));
@@ -131,4 +134,19 @@ void Highway::move_traffic() {
         car->move();
         car = car->getNext();
     }
+}
+
+void Highway::sort_cars();
+    // use bubble sort to sort cars from low to high
+    // compare vehicle distances to reorder the list
+
+void Highway::check_proximity() {
+    // search for cars to in front of car in same lane
+    // search for cars to the left or right of the car
+    // if safe to pass, call pass function
+    // if unsafe to pass, slow down
+}
+
+void Highway::pass() {
+    
 }

@@ -42,4 +42,7 @@ public:
 	void draw();		// display the highway
     void draw_cars();   // draw the cars
     void move_traffic();
+    void check_proximity(); // check for cars around the car
+    void pass();
+    void sort_cars(); // sort the cars based on distance
 };
