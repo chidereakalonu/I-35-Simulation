@@ -64,6 +64,10 @@ int Vehicle::getYPos() {
     return yPos;
 }
 
+int Vehicle::getDistance() {
+    return distance;
+}
+
 int Vehicle::getCurrentLane() {
     return current_lane;
 }

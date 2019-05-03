@@ -53,6 +53,7 @@ class Vehicle {
         int getSize();
         int getXPos();
         int getYPos();
+        int getDistance();
         int getCurrentLane();
         int getPreferredLane();
         int getMile();
