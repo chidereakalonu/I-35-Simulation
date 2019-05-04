@@ -15,7 +15,7 @@ void drawScene(void) {
 
 void animate() {
 
-    thirtyfive.move_traffic();
+    thirtyfive.animate();
     glutPostRedisplay();
     pause_ms(16);
 
