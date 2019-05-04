@@ -3,6 +3,7 @@
 // constructors
 Vehicle::Vehicle(void) {
     size = 25;
+    distance = -100;
     xPos = -100;
     yPos = -100;
     xSpeed = 10;
@@ -35,11 +36,11 @@ Vehicle::Vehicle(int siz, int x, int y, int xv, int yv,
 }
 
 // Linked List Code
-Vehicle * Vehicle::getNext(void) {
+Vehicle * Vehicle::getNext() {
     return this->Next;
 }
 
-Vehicle * Vehicle::getPrevious(void) {
+Vehicle * Vehicle::getPrev() {
     return this->Prev;
 }
 
@@ -95,7 +96,12 @@ void Vehicle::setSpeed(int xv, int yv) {
     ySpeed = yv;
 }
 
+void Vehicle::setDistance(int dst) {
+    distance = dst;
+}
+
 void Vehicle::move(void) {
+    distance += xSpeed;
     xPos += xSpeed;
     yPos += ySpeed;
 }

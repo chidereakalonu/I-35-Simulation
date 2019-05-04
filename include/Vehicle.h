@@ -22,6 +22,7 @@ class Vehicle {
         int xSpeed;     // current speed
         int ySpeed;
         int id;
+        int distance;
 
         int preferred_lane;
         int current_lane;
@@ -43,6 +44,7 @@ class Vehicle {
         void setSpeed( int xv, int yv );
         void setLane(int lane);
         void setMile(int mi);
+        void setDistance(int dst);
         void move( void );
         void setID(int i);
         void setNext(Vehicle * ptr);
@@ -60,8 +62,8 @@ class Vehicle {
         int getID();
         ColorName getColor();
 
-        Vehicle * getNext( void );
-        Vehicle * getPrevious( void );
+        Vehicle * getNext();
+        Vehicle * getPrev();
 
         // mgmt
 
