@@ -172,7 +172,6 @@ void Highway::move_traffic() {
         car->move();
         car = car->getNext();
     }
-    std::cout << "Does it work?" << std::endl;
 }
 
 void Highway::sort_cars() {
