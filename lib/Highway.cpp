@@ -20,6 +20,7 @@ Highway::Highway() {
             car->setPrev(nullptr);
             car->setNext(nullptr);
             car->setPosition((-50) * i - 50, car->getYPos());
+            car->setDistance((-50) * i - 50);
         }
         else {
             while (ptr->getNext() != nullptr) {
@@ -29,6 +30,7 @@ Highway::Highway() {
             ptr->setNext( car );
             car->setPrev( ptr );
             car->setPosition((-50) * i - 50, car->getYPos());
+            car->setDistance((-50) * i - 50);
             car->setLane(init_lane);
         }
     }
@@ -48,9 +50,38 @@ Highway::Highway(int lane, int wid, int len, std::string nam, int trfc) {
     length = len;
     name = nam;
     traffic = trfc;
+    this->carList = nullptr;
+
+    for (int i = 0; i < traffic; i++) {
+        Vehicle * ptr = this->carList;
+        int init_lane = dice.randint(1,3);
+        if (ptr == nullptr) {
+            Vehicle * car = new Vehicle;
+            this->carList = car;
+            car->setPrev(nullptr);
+            car->setNext(nullptr);
+            car->setPosition((-50) * i - 50, car->getYPos());
+            car->setDistance((-50) * i - 50);
+        }
+        else {
+            while (ptr->getNext() != nullptr) {
+                ptr = ptr->getNext();
+            }
+            Vehicle * car = new Vehicle();
+            ptr->setNext( car );
+            car->setPrev( ptr );
+            car->setPosition((-50) * i - 50, car->getYPos());
+            car->setDistance((-50) * i - 50);
+            car->setLane(init_lane);
+        }
+    }
 }
 
 // accessors
+Vehicle * Highway::getCarList() {
+    return this->carList;
+}
+
 std::string Highway::get_name() {
     return name;
 }
@@ -112,7 +143,10 @@ void Highway::draw_cars() {
             car->setPosition(car->getXPos(), yPos);
 
         }
-        if (current_mile >= HIGHWAY_SECTIONS) car->setPosition(-100, -100);
+        if (current_mile >= HIGHWAY_SECTIONS) {
+            car->setPosition(-100, -100);
+            car->setDistance(-100);
+        }
 
         int len = car->getSize();
         int car_x_bot = car->getXPos();
@@ -127,18 +161,67 @@ void Highway::draw_cars() {
     }
 
 }
+void Highway::animate() {
+    sort_cars();
+    move_traffic();
 
+}
 void Highway::move_traffic() {
     Vehicle * car = carList;
     while (car != nullptr) {
         car->move();
         car = car->getNext();
     }
+    std::cout << "Does it work?" << std::endl;
 }
 
-void Highway::sort_cars();
-    // use bubble sort to sort cars from low to high
-    // compare vehicle distances to reorder the list
+void Highway::sort_cars() {
+    Vehicle * list_end = nullptr;
+    while(list_end != carList) {
+        Vehicle *tmp, *car;
+        car = carList;
+        while (car->getNext() != list_end) {
+            Vehicle *nxt = car->getNext();
+            if (car->getDistance() > nxt->getDistance()) {
+                car->setNext(nxt->getNext());
+                nxt->setNext(car);
+                if(car == carList) {
+                    carList = nxt;
+                    car = nxt;
+                }
+                else {
+                    car = nxt;
+                    tmp->setNext(nxt);
+                }
+            }
+            tmp = car;
+            car = car->getNext();
+        }
+        // update the list_end to the last sorted element:
+        list_end = car;
+    }
+    Vehicle * car = carList;
+    Vehicle *nxt, *tmp;
+    while (car != nullptr) {
+        if (car == carList) {
+            nxt = car->getNext();
+            nxt->setPrev(car);
+            car->setPrev(nullptr);
+        }
+        else if (car->getNext() == nullptr) {
+            car->setPrev(tmp);
+        }
+        else {
+            nxt = car->getNext();
+            nxt->setPrev(car);
+            car->setPrev(tmp);
+        }
+        tmp = car;
+        car = car->getNext();
+    }
+
+
+}
 
 void Highway::check_proximity() {
     // search for cars to in front of car in same lane
@@ -148,5 +231,5 @@ void Highway::check_proximity() {
 }
 
 void Highway::pass() {
-    
+
 }

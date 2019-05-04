@@ -33,7 +33,7 @@ public:
 
     // accessors
     std::string get_name();
-    Vehicle * getTraffic();
+    Vehicle * getCarList();
     int get_lanes();
     int get_width();
     int get_length();
@@ -45,4 +45,6 @@ public:
     void check_proximity(); // check for cars around the car
     void pass();
     void sort_cars(); // sort the cars based on distance
+
+    void animate();
 };
