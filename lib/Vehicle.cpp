@@ -18,6 +18,7 @@ Vehicle::Vehicle(void) {
     this->Prev = nullptr;
 }
 
+
 Vehicle::Vehicle(int siz, int x, int y, int xv, int yv,
         int preferred_lan, bool activ,
         ColorName c, Vehicle * nextCar, Vehicle * prevCar) {
@@ -33,6 +34,14 @@ Vehicle::Vehicle(int siz, int x, int y, int xv, int yv,
     mile = 0;
     this->Next = nextCar;
     this->Prev = prevCar;
+}
+
+void Vehicle::init_vehicle() {
+    this->setLane(dice.randint(1,3));
+    this->setColor(dice.randint(1,13));
+    this->setSpeed(dice.randint(5,10), 0, 0);
+    this->setSize(dice.randint(25, 30));
+    this->setRisk(dice.randint(1, 10));
 }
 
 // Linked List Code
@@ -52,6 +61,13 @@ void Vehicle::setPrev( Vehicle * ptr ) {
     this->Prev = ptr;
 }
 
+void Vehicle::setSize(int sz) {
+    size = sz;
+}
+
+void Vehicle::setRisk(int risk) {
+    risky = risk;
+}
 // accessors
 int Vehicle::getSize() {
     return size;
@@ -80,6 +96,9 @@ int Vehicle::getMile() {
 int Vehicle::getID() {
     return id;
 }
+int Vehicle::getXSpeed() {
+    return xSpeed;
+}
 
 ColorName Vehicle::getColor() {
     return colors[color];
@@ -91,8 +110,15 @@ void Vehicle::setPosition(int x, int y) {
     yPos = y;
 }
 
-void Vehicle::setSpeed(int xv, int yv) {
+void Vehicle::setSpeed(int pv, int xv, int yv) {
+    if (pv != 0) {
+        pref_speed = pv;
+    }
+    if (xv == 0) {
+        xSpeed = pv;
+    } else {
     xSpeed = xv;
+    }
     ySpeed = yv;
 }
 
@@ -104,6 +130,23 @@ void Vehicle::move(void) {
     distance += xSpeed;
     xPos += xSpeed;
     yPos += ySpeed;
+    this->accelerate();
+    Vehicle * nxt = check_ahead();
+    if (nxt != nullptr) {
+        if (nxt->getDistance() - this->getDistance() <= size * (2 + (risky / 5))) {
+            // std::cout << "NEED TO PASS" << std::endl;
+            if (this->pass_safety() == false) {
+                int speed = nxt->getXSpeed();
+                this->slow_down(speed);
+            }
+            else if (this->pass_safety() == true) {
+                this->accelerate();
+            }
+        }
+        else {
+            this->accelerate();
+        }
+    }
 }
 
 void Vehicle::setLane(int lane) {
@@ -122,4 +165,92 @@ void Vehicle::setID( int i ) {
 
 void Vehicle::setColor(int col) {
     color = col;
+}
+
+// Passing Logic
+Vehicle * Vehicle::check_ahead() {
+    bool found = false;
+    Vehicle * ptr = this;
+    Vehicle * nxt;
+    while (found != true) {
+        while (ptr->getNext() != nullptr) {
+            nxt = ptr->getNext();
+            if (nxt->getCurrentLane() == this->getCurrentLane()) {
+                found = true;
+                break;
+            }
+            ptr = ptr->getNext();
+        }
+        break;
+    }
+    if (found) {
+        return nxt;
+    }
+    else return nullptr;
+}
+
+// TODO: move this to the vehicle class
+bool Vehicle::check_lane(int lane) {
+    bool forward_found = false;
+    bool back_found = false;
+    Vehicle * ptr = this;
+    Vehicle * nxt;
+    Vehicle * prv;
+    while (ptr->getNext() != nullptr) {
+        nxt = ptr->getNext();
+        if (nxt->getCurrentLane() == lane) {
+            forward_found = true;
+            break;
+        }
+        ptr = ptr->getNext();
+    }
+    while (ptr->getPrev() != nullptr) {
+        prv = ptr->getPrev();
+        if (prv->getCurrentLane() == lane) {
+            back_found = true;
+            break;
+        }
+        ptr = ptr->getPrev();
+    }
+    if ((back_found) && (forward_found)) {
+        if ((nxt->getDistance() - this->getDistance() >= size * (2 + (risky / 5))) &&
+            (this->getDistance() - prv->getDistance() >= size * (2 + (risky / 5)))) {
+                return true;
+             }
+    }
+    else {
+        return false;
+    }
+}
+
+bool Vehicle::pass_safety() {
+    if ((this->getCurrentLane() == 1) || (this->getCurrentLane() == 3)) {
+        if (this->check_lane(2)) {
+            pass(2);
+            return true;
+        }
+    }
+    else if (this->getCurrentLane() == 2) {
+        if (this->check_lane(3)) {
+            pass(3);
+            return true;
+        }
+        else if (this->check_lane(1)) {
+            pass(1);
+            return true;
+        }
+    }
+    else {
+        return false;
+    }
+}
+
+void Vehicle::pass(int lane) {
+    this->setLane(lane);
+}
+void Vehicle::slow_down(int spd) {
+    this->setSpeed(0, spd, 0);
+}
+void Vehicle::accelerate() {
+    this->setSpeed(0, pref_speed, 0);
 }

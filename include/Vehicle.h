@@ -17,9 +17,11 @@ class Vehicle {
         Random dice;
 
         int size;       // how big should this vehicle be
+        int risky;
         int xPos;       // screen position in pixels
         int yPos;
         int xSpeed;     // current speed
+        int pref_speed; // preferred speed
         int ySpeed;
         int id;
         int distance;
@@ -40,8 +42,9 @@ class Vehicle {
                 ColorName c, Vehicle * nextCar, Vehicle * prevCar);
 
         // mutators
+        void init_vehicle();
         void setPosition( int x, int y );
-        void setSpeed( int xv, int yv );
+        void setSpeed( int pv, int xv, int yv );
         void setLane(int lane);
         void setMile(int mi);
         void setDistance(int dst);
@@ -49,6 +52,8 @@ class Vehicle {
         void setID(int i);
         void setNext(Vehicle * ptr);
         void setPrev(Vehicle * ptr);
+        void setSize(int sz);
+        void setRisk(int risk);
         void setColor(int col);
         void setCurrentLane(int lan);
 
@@ -61,13 +66,21 @@ class Vehicle {
         int getPreferredLane();
         int getMile();
         int getID();
+        int getXSpeed();
         ColorName getColor();
 
         Vehicle * getNext();
         Vehicle * getPrev();
 
         // mgmt
-
         void walkTraffic(void);
+
+        // passing logic
+        Vehicle * check_ahead();
+        bool check_lane(int lane);
+        bool pass_safety();
+        void pass(int lane);
+        void slow_down(int spd);
+        void accelerate();
 
 };

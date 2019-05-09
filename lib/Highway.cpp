@@ -7,7 +7,7 @@ Highway::Highway() {
     lanes = MIN_LANES;
     width = MIN_WIDTH;
     length = MIN_LENGTH;
-    traffic = dice.randint(50, 100);
+    traffic = dice.randint(50, 200);
     this->carList = nullptr;
 
     // populate the list
@@ -39,9 +39,7 @@ Highway::Highway() {
     // set up the vehicles
     Vehicle * car = this->carList;
     while (car != nullptr) {
-        car->setLane(dice.randint(1,3));
-        car->setColor(dice.randint(1,13));
-        car->setSpeed(dice.randint(4,8), 0);
+        car->init_vehicle();
         car = car->getNext();
     }
 }
@@ -146,8 +144,10 @@ void Highway::draw_cars() {
 
         }
         if (current_mile >= HIGHWAY_SECTIONS) {
-            car->setPosition(-100, -100);
-            car->setDistance(-100);
+            int position = car->getID() * -100;
+            car->setPosition(position, -100);
+            car->setDistance(position);
+            car->init_vehicle();
         }
 
         int len = car->getSize();
@@ -171,12 +171,6 @@ void Highway::animate() {
 void Highway::move_traffic() {
     Vehicle * car = carList;
     while (car != nullptr) {
-        if (check_ahead(car) == true) {
-            std::cout << car->getID() << ": Found a car ahead!" << std::endl;
-            pass_safety(car);
-        }
-        // std::cout << car->getID() << ": " << car->getCurrentLane() << ", "
-        //           << car->getDistance() << std::endl;
         car->move();
         car = car->getNext();
     }
@@ -229,85 +223,85 @@ void Highway::sort_cars() {
 }
 
 // TODO: Move this to the vehicle class
-bool Highway::check_ahead(Vehicle * car) {
-    bool found = false;
-    Vehicle * ptr = car;
-    Vehicle * nxt;
-    while (found != true) {
-        while (ptr->getNext() != nullptr) {
-            nxt = ptr->getNext();
-            if (nxt->getCurrentLane() == car->getCurrentLane()) {
-                found = true;
-                break;
-            }
-            ptr = ptr->getNext();
-        }
-        break;
-    }
-    if ((found) && (nxt->getDistance() - car->getDistance() <= 35)) { // 100 for testing purposes
-
-        return true;
-    }
-    else {
-        return false;
-    }
-    // search for cars to in front of car in same lane
-    // search for cars to the left or right of the car
-    // if safe to pass, call pass function
-    // if unsafe to pass, slow down
-}
-
-// TODO: move this to the vehicle class
-bool Highway::check_lane(Vehicle * car, int lane) {
-    bool forward_found = false;
-    bool back_found = false;
-    Vehicle * ptr = car;
-    Vehicle * nxt;
-    Vehicle * prv;
-    while (ptr->getNext() != nullptr) {
-        nxt = ptr->getNext();
-        if (nxt->getCurrentLane() == lane) {
-            forward_found = true;
-            break;
-        }
-        ptr = ptr->getNext();
-    }
-    while (ptr->getPrev() != nullptr) {
-        prv = ptr->getPrev();
-        if (prv->getCurrentLane() == lane) {
-            back_found = true;
-            break;
-        }
-        ptr = ptr->getPrev();
-    }
-    if ((back_found) && (forward_found)) {
-        if ((nxt->getDistance() - car->getDistance() >= 35) &&
-            (car->getDistance() - prv->getDistance() >= 55)) {
-                return true;
-             }
-    }
-    else {
-        return false;
-    }
-}
-
-bool Highway::pass_safety(Vehicle * car) {
-    if ((car->getCurrentLane() == 1) || (car->getCurrentLane() == 3)) {
-        if (this->check_lane(car, 2)) {
-            pass(car, 2);
-        }
-    }
-    else if (check_lane(car, 1)) {
-        pass(car, 1);
-    }
-    else if (check_lane(car, 3)) {
-        pass(car, 3);
-    }
-    else {
-        // slow_down
-    }
-}
-
-void Highway::pass(Vehicle * car, int lane) {
-    car->setLane(lane);
-}
+// bool Highway::check_ahead(Vehicle * car) {
+//     bool found = false;
+//     Vehicle * ptr = car;
+//     Vehicle * nxt;
+//     while (found != true) {
+//         while (ptr->getNext() != nullptr) {
+//             nxt = ptr->getNext();
+//             if (nxt->getCurrentLane() == car->getCurrentLane()) {
+//                 found = true;
+//                 break;
+//             }
+//             ptr = ptr->getNext();
+//         }
+//         break;
+//     }
+//     if ((found) && (nxt->getDistance() - car->getDistance() <= 35)) { // 100 for testing purposes
+//
+//         return true;
+//     }
+//     else {
+//         return false;
+//     }
+//     // search for cars to in front of car in same lane
+//     // search for cars to the left or right of the car
+//     // if safe to pass, call pass function
+//     // if unsafe to pass, slow down
+// }
+//
+// // TODO: move this to the vehicle class
+// bool Highway::check_lane(Vehicle * car, int lane) {
+//     bool forward_found = false;
+//     bool back_found = false;
+//     Vehicle * ptr = car;
+//     Vehicle * nxt;
+//     Vehicle * prv;
+//     while (ptr->getNext() != nullptr) {
+//         nxt = ptr->getNext();
+//         if (nxt->getCurrentLane() == lane) {
+//             forward_found = true;
+//             break;
+//         }
+//         ptr = ptr->getNext();
+//     }
+//     while (ptr->getPrev() != nullptr) {
+//         prv = ptr->getPrev();
+//         if (prv->getCurrentLane() == lane) {
+//             back_found = true;
+//             break;
+//         }
+//         ptr = ptr->getPrev();
+//     }
+//     if ((back_found) && (forward_found)) {
+//         if ((nxt->getDistance() - car->getDistance() >= 35) &&
+//             (car->getDistance() - prv->getDistance() >= 55)) {
+//                 return true;
+//              }
+//     }
+//     else {
+//         return false;
+//     }
+// }
+//
+// bool Highway::pass_safety(Vehicle * car) {
+//     if ((car->getCurrentLane() == 1) || (car->getCurrentLane() == 3)) {
+//         if (this->check_lane(car, 2)) {
+//             pass(car, 2);
+//         }
+//     }
+//     else if (check_lane(car, 1)) {
+//         pass(car, 1);
+//     }
+//     else if (check_lane(car, 3)) {
+//         pass(car, 3);
+//     }
+//     else {
+//         // slow_down
+//     }
+// }
+//
+// void Highway::pass(Vehicle * car, int lane) {
+//     car->setLane(lane);
+// }
