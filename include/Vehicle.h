@@ -50,6 +50,7 @@ class Vehicle {
         void setNext(Vehicle * ptr);
         void setPrev(Vehicle * ptr);
         void setColor(int col);
+        void setCurrentLane(int lan);
 
         // accessors
         int getSize();

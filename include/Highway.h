@@ -42,8 +42,10 @@ public:
 	void draw();		// display the highway
     void draw_cars();   // draw the cars
     void move_traffic();
-    void check_proximity(); // check for cars around the car
-    void pass();
+    bool check_ahead(Vehicle * car); // check for cars around the car
+    bool check_lane(Vehicle * car, int lane); // check the lanes for vehicles
+    bool pass_safety(Vehicle * car);
+    void pass(Vehicle * car, int lane);
     void sort_cars(); // sort the cars based on distance
 
     void animate();

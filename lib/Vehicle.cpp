@@ -85,7 +85,7 @@ ColorName Vehicle::getColor() {
     return colors[color];
 }
 
-// mutator methods
+// mutator methodss
 void Vehicle::setPosition(int x, int y) {
     xPos = x;
     yPos = y;

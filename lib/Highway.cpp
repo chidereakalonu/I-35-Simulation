@@ -7,7 +7,7 @@ Highway::Highway() {
     lanes = MIN_LANES;
     width = MIN_WIDTH;
     length = MIN_LENGTH;
-    traffic = dice.randint(50, 200);
+    traffic = dice.randint(50, 100);
     this->carList = nullptr;
 
     // populate the list
@@ -19,8 +19,9 @@ Highway::Highway() {
             this->carList = car;
             car->setPrev(nullptr);
             car->setNext(nullptr);
-            car->setPosition((-50) * i - 50, car->getYPos());
-            car->setDistance((-50) * i - 50);
+            car->setPosition((-50) * i - 100, car->getYPos());
+            car->setDistance((-50) * i - 100);
+            car->setID(i);
         }
         else {
             while (ptr->getNext() != nullptr) {
@@ -29,9 +30,10 @@ Highway::Highway() {
             Vehicle * car = new Vehicle();
             ptr->setNext( car );
             car->setPrev( ptr );
-            car->setPosition((-50) * i - 50, car->getYPos());
-            car->setDistance((-50) * i - 50);
+            car->setPosition((-50) * i - 100, car->getYPos());
+            car->setDistance((-50) * i - 100);
             car->setLane(init_lane);
+            car->setID(i);
         }
     }
     // set up the vehicles
@@ -169,6 +171,12 @@ void Highway::animate() {
 void Highway::move_traffic() {
     Vehicle * car = carList;
     while (car != nullptr) {
+        if (check_ahead(car) == true) {
+            std::cout << car->getID() << ": Found a car ahead!" << std::endl;
+            pass_safety(car);
+        }
+        // std::cout << car->getID() << ": " << car->getCurrentLane() << ", "
+        //           << car->getDistance() << std::endl;
         car->move();
         car = car->getNext();
     }
@@ -200,7 +208,7 @@ void Highway::sort_cars() {
         list_end = car;
     }
     Vehicle * car = carList;
-    Vehicle *nxt, *tmp;
+    Vehicle * nxt, * tmp;
     while (car != nullptr) {
         if (car == carList) {
             nxt = car->getNext();
@@ -218,17 +226,88 @@ void Highway::sort_cars() {
         tmp = car;
         car = car->getNext();
     }
-
-
 }
 
-void Highway::check_proximity() {
+// TODO: Move this to the vehicle class
+bool Highway::check_ahead(Vehicle * car) {
+    bool found = false;
+    Vehicle * ptr = car;
+    Vehicle * nxt;
+    while (found != true) {
+        while (ptr->getNext() != nullptr) {
+            nxt = ptr->getNext();
+            if (nxt->getCurrentLane() == car->getCurrentLane()) {
+                found = true;
+                break;
+            }
+            ptr = ptr->getNext();
+        }
+        break;
+    }
+    if ((found) && (nxt->getDistance() - car->getDistance() <= 35)) { // 100 for testing purposes
+
+        return true;
+    }
+    else {
+        return false;
+    }
     // search for cars to in front of car in same lane
     // search for cars to the left or right of the car
     // if safe to pass, call pass function
     // if unsafe to pass, slow down
 }
 
-void Highway::pass() {
+// TODO: move this to the vehicle class
+bool Highway::check_lane(Vehicle * car, int lane) {
+    bool forward_found = false;
+    bool back_found = false;
+    Vehicle * ptr = car;
+    Vehicle * nxt;
+    Vehicle * prv;
+    while (ptr->getNext() != nullptr) {
+        nxt = ptr->getNext();
+        if (nxt->getCurrentLane() == lane) {
+            forward_found = true;
+            break;
+        }
+        ptr = ptr->getNext();
+    }
+    while (ptr->getPrev() != nullptr) {
+        prv = ptr->getPrev();
+        if (prv->getCurrentLane() == lane) {
+            back_found = true;
+            break;
+        }
+        ptr = ptr->getPrev();
+    }
+    if ((back_found) && (forward_found)) {
+        if ((nxt->getDistance() - car->getDistance() >= 35) &&
+            (car->getDistance() - prv->getDistance() >= 55)) {
+                return true;
+             }
+    }
+    else {
+        return false;
+    }
+}
 
+bool Highway::pass_safety(Vehicle * car) {
+    if ((car->getCurrentLane() == 1) || (car->getCurrentLane() == 3)) {
+        if (this->check_lane(car, 2)) {
+            pass(car, 2);
+        }
+    }
+    else if (check_lane(car, 1)) {
+        pass(car, 1);
+    }
+    else if (check_lane(car, 3)) {
+        pass(car, 3);
+    }
+    else {
+        // slow_down
+    }
+}
+
+void Highway::pass(Vehicle * car, int lane) {
+    car->setLane(lane);
 }
