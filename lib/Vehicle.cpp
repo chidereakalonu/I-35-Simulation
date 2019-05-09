@@ -135,7 +135,12 @@ void Vehicle::move(void) {
     if (nxt != nullptr) {
         if (nxt->getDistance() - this->getDistance() <= size * (2 + (risky / 5))) {
             // std::cout << "NEED TO PASS" << std::endl;
-            if (this->pass_safety() == false) {
+            // if they are stuck together, deglue
+            if (nxt->getDistance() - this->getDistance() <= size ) {
+                int speed = nxt->getXSpeed() - 5;
+                this->slow_down(speed);
+            }
+            else if (this->pass_safety() == false) {
                 int speed = nxt->getXSpeed();
                 this->slow_down(speed);
             }
