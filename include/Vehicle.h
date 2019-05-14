@@ -18,13 +18,13 @@ class Vehicle {
 
         int size;       // how big should this vehicle be
         int risky;
-        int xPos;       // screen position in pixels
+        float xPos;       // screen position in pixels
         int yPos;
-        int xSpeed;     // current speed
-        int pref_speed; // preferred speed
+        float xSpeed;     // current speed
+        float pref_speed; // preferred speed
         int ySpeed;
         int id;
-        int distance;
+        float distance;
 
         int preferred_lane;
         int current_lane;
@@ -43,11 +43,11 @@ class Vehicle {
 
         // mutators
         void init_vehicle();
-        void setPosition( int x, int y );
-        void setSpeed( int pv, int xv, int yv );
+        void setPosition( float x, int y );
+        void setSpeed( float pv, float xv, int yv );
         void setLane(int lane);
         void setMile(int mi);
-        void setDistance(int dst);
+        void setDistance(float dst);
         void move( void );
         void setID(int i);
         void setNext(Vehicle * ptr);
@@ -59,14 +59,14 @@ class Vehicle {
 
         // accessors
         int getSize();
-        int getXPos();
+        float getXPos();
         int getYPos();
-        int getDistance();
+        float getDistance();
         int getCurrentLane();
         int getPreferredLane();
         int getMile();
         int getID();
-        int getXSpeed();
+        float getXSpeed();
         ColorName getColor();
 
         Vehicle * getNext();
@@ -80,7 +80,7 @@ class Vehicle {
         bool check_lane(int lane);
         bool pass_safety();
         void pass(int lane);
-        void slow_down(int spd);
+        void slow_down(float spd);
         void accelerate();
 
 };

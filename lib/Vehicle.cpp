@@ -38,8 +38,8 @@ Vehicle::Vehicle(int siz, int x, int y, int xv, int yv,
 
 void Vehicle::init_vehicle() {
     this->setLane(dice.randint(1,3));
-    this->setColor(dice.randint(1,13));
-    this->setSpeed(dice.randint(5,10), 0, 0);
+    this->setColor(dice.randint(0,12));
+    this->setSpeed(dice.randfloat(4.0,11.0), 0, 0);
     this->setSize(dice.randint(25, 30));
     this->setRisk(dice.randint(1, 10));
 }
@@ -73,7 +73,7 @@ int Vehicle::getSize() {
     return size;
 }
 
-int Vehicle::getXPos() {
+float Vehicle::getXPos() {
     return xPos;
 }
 
@@ -81,7 +81,7 @@ int Vehicle::getYPos() {
     return yPos;
 }
 
-int Vehicle::getDistance() {
+float Vehicle::getDistance() {
     return distance;
 }
 
@@ -96,7 +96,7 @@ int Vehicle::getMile() {
 int Vehicle::getID() {
     return id;
 }
-int Vehicle::getXSpeed() {
+float Vehicle::getXSpeed() {
     return xSpeed;
 }
 
@@ -105,12 +105,12 @@ ColorName Vehicle::getColor() {
 }
 
 // mutator methodss
-void Vehicle::setPosition(int x, int y) {
+void Vehicle::setPosition(float x, int y) {
     xPos = x;
     yPos = y;
 }
 
-void Vehicle::setSpeed(int pv, int xv, int yv) {
+void Vehicle::setSpeed(float pv, float xv, int yv) {
     if (pv != 0) {
         pref_speed = pv;
     }
@@ -122,7 +122,7 @@ void Vehicle::setSpeed(int pv, int xv, int yv) {
     ySpeed = yv;
 }
 
-void Vehicle::setDistance(int dst) {
+void Vehicle::setDistance(float dst) {
     distance = dst;
 }
 
@@ -137,11 +137,11 @@ void Vehicle::move(void) {
             // std::cout << "NEED TO PASS" << std::endl;
             // if they are stuck together, deglue
             if (nxt->getDistance() - this->getDistance() <= size ) {
-                int speed = nxt->getXSpeed() - 5;
+                float speed = nxt->getXSpeed() - 5;
                 this->slow_down(speed);
             }
             else if (this->pass_safety() == false) {
-                int speed = nxt->getXSpeed();
+                float speed = nxt->getXSpeed();
                 this->slow_down(speed);
             }
             else if (this->pass_safety() == true) {
@@ -253,7 +253,7 @@ bool Vehicle::pass_safety() {
 void Vehicle::pass(int lane) {
     this->setLane(lane);
 }
-void Vehicle::slow_down(int spd) {
+void Vehicle::slow_down(float spd) {
     this->setSpeed(0, spd, 0);
 }
 void Vehicle::accelerate() {

@@ -7,7 +7,7 @@ Highway::Highway() {
     lanes = MIN_LANES;
     width = MIN_WIDTH;
     length = MIN_LENGTH;
-    traffic = dice.randint(450, 500);
+    traffic = dice.randint(150, 200);
     this->carList = nullptr;
 
     // populate the list
@@ -144,7 +144,7 @@ void Highway::draw_cars() {
 
         }
         if (current_mile >= HIGHWAY_SECTIONS) {
-            int position = carList->getDistance() - (size * 2);
+            float position = carList->getDistance() - (carList->getSize() * 2);
             car->setPosition(position, -100);
             car->setDistance(position);
             car->init_vehicle();
@@ -171,6 +171,12 @@ void Highway::animate() {
 void Highway::move_traffic() {
     Vehicle * car = carList;
     while (car != nullptr) {
+        // debugging
+        // std::cout << car->getID() << ": "
+        //           << car->getXSpeed() << " "
+        //           << car->getDistance() << " "
+        //           << car->getXPos() << " "
+        //           << std::endl;
         car->move();
         car = car->getNext();
     }

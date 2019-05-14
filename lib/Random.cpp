@@ -13,3 +13,7 @@ int Random::randint(int min, int max) {
     int output = min + (rand() % range);
     return output;
 }
+
+float Random::randfloat(float min, float max) {
+    return  (max - min) * ((((float) rand()) / (float) RAND_MAX)) + min;
+}
