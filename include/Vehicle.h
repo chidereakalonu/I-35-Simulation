@@ -1,3 +1,5 @@
+// Author: Joshua Lipham
+
 #pragma once
 
 #include <iostream>

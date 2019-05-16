@@ -1,3 +1,4 @@
+// Author: Davin Lawrence
 #include "Highway.h"
 
 Random dice;

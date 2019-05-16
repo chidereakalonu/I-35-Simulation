@@ -1,3 +1,4 @@
+// Author: Joshua Lipham
 #include "Vehicle.h"
 
 // constructors

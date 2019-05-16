@@ -1,3 +1,5 @@
+// Author: Davin Lawrence
+
 #pragma once
 
 #include "Graphics.h"
